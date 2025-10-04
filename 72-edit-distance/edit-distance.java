@@ -2,36 +2,34 @@ class Solution {
   public int minDistance(String word1, String word2) {
     int m = word1.length();
     int n = word2.length();
-
     int[][] dp = new int[m + 1][n + 1];
 
-    // Step 1: Initialize base cases
+    // Fill with -1 to indicate uncomputed states
     for (int i = 0; i <= m; i++)
-      dp[i][0] = i;  // Deleting all characters from word1
+      for (int j = 0; j <= n; j++)
+        dp[i][j] = -1;
 
-    for (int j = 0; j <= n; j++)
-      dp[0][j] = j;  // Inserting all characters into word1
+    return helper(word1, word2, m, n, dp);
+  }
 
-    // Step 2: Fill the table bottom-up
-    for (int i = 1; i <= m; i++) {
-      for (int j = 1; j <= n; j++) {
+  private int helper(String word1, String word2, int i, int j, int[][] dp) {
+    // Base cases
+    if (i == 0) return j; // insert all j chars
+    if (j == 0) return i; // delete all i chars
 
-        // If characters match → no extra operation
-        if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
-          dp[i][j] = dp[i - 1][j - 1];
-        } 
-        // Otherwise → choose min of insert, delete, replace
-        else {
-          int insertOp = dp[i][j - 1];   // Insert into word1
-          int deleteOp = dp[i - 1][j];   // Delete from word1
-          int replaceOp = dp[i - 1][j - 1]; // Replace character
+    if (dp[i][j] != -1) return dp[i][j]; // memoized result
 
-          dp[i][j] = 1 + Math.min(replaceOp, Math.min(insertOp, deleteOp));
-        }
-      }
+    // If last characters are same → no cost
+    if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+      dp[i][j] = helper(word1, word2, i - 1, j - 1, dp);
+    } else {
+      int insertOp = helper(word1, word2, i, j - 1, dp);     // insert
+      int deleteOp = helper(word1, word2, i - 1, j, dp);     // delete
+      int replaceOp = helper(word1, word2, i - 1, j - 1, dp); // replace
+
+      dp[i][j] = 1 + Math.min(replaceOp, Math.min(insertOp, deleteOp));
     }
 
-    // Step 3: The answer is in dp[m][n]
-    return dp[m][n];
+    return dp[i][j];
   }
 }
