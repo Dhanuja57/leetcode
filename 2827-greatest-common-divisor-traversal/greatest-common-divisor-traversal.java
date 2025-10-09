@@ -1,66 +1,63 @@
 class Solution {
+    public void dfs(ArrayList<ArrayList<Integer>>adj,int []vis,int st){
+        vis[st]=1;
+        for(int i:adj.get(st)){
+            if(vis[i]==0){
+                dfs(adj,vis,i);
+            }
+        }
+    }
+public static void allprime(int n,HashMap<Integer,ArrayList<Integer>>map,int st){
+        if(n%2==0){
+            if(!map.containsKey(2))map.put(2,new ArrayList<>());
+            ArrayList<Integer>temp=map.get(2);
+            temp.add(st);
+            map.put(2,temp);
+        }
+        while(n%2==0){
+            n/=2;
+        }
+        for(int i=3; i<=Math.sqrt(n); i+=2){
+            if(n%i==0){
+                if(!map.containsKey(i))map.put(i,new ArrayList<>());
+                ArrayList<Integer>temp=map.get(i);
+                temp.add(st);
+                map.put(i,temp);
+            }
+            while(n%i==0){
+                n/=i;
+            }
+        }
+        if(n>2){
+            if(!map.containsKey(n))map.put(n,new ArrayList<>());
+            ArrayList<Integer>temp=map.get(n);
+            temp.add(st);
+            map.put(n,temp);
+        }
+    }
     public boolean canTraverseAllPairs(int[] nums) {
-        if(nums.length == 1) return true;
-        int n = nums.length;
-        int maxElement = Arrays.stream(nums).max().getAsInt();
-        if(Arrays.stream(nums).min().getAsInt() == 1) return false;
-        int[] factorArray = factorsCalculator(maxElement);
+        ArrayList<ArrayList<Integer>>adj=new ArrayList<>();
+        HashMap<Integer,ArrayList<Integer>>map=new HashMap<>();
         
-        int[] parent = new int[maxElement + 1];
-        int[] rank = new int[maxElement + 1];
-        for (int i = 0; i < parent.length; i++) {
-            parent[i] = i;
-            rank[i] = 1;
+        int n=nums.length;
+        for(int i=0;i<n;i++){
+            adj.add(new ArrayList<>());
+        }    
+        for(int i=0;i<n;i++){
+            allprime(nums[i],map,i);
         }
-
-        for (int num : nums) {
-            int x = num;
-            while (x > 1) {
-                int p = factorArray[x];
-                union(parent, rank, p, num);
-                while (x % p == 0) {
-                    x = x / p;
-                }
+        
+        for(ArrayList<Integer>temp:map.values()){
+            for(int i=1;i<temp.size();i++){
+                adj.get(temp.get(i-1)).add(temp.get(i));
+                adj.get(temp.get(i)).add(temp.get(i-1));
             }
         }
-
-        int p = find(parent, nums[0]);
-        for (int i = 1; i < nums.length; i++) {
-            if (find(parent, nums[i]) != p) return false;
+        int []vis=new int[n];
+        dfs(adj,vis,0);
+        for(int i=0;i<n;i++){
+            if(vis[i]==0)return false;
         }
-
         return true;
-    }
-
-    private int[] factorsCalculator(int n) {
-        int[] dp = new int[n + 2];
-        for (int i = 0; i < dp.length; i++) {
-            dp[i] = i;
-        }
-        for (int i = 2; i <= n; i++) {
-            if (dp[i] == i) {
-                for (int j = i * 2; j <= n; j += i) {
-                    if (dp[j] == j) dp[j] = i;
-                }
-            }
-        }
-        return dp;
-    }
-
-    private int find(int[] parent, int a) {
-        return parent[a] = parent[a] == a ? a : find(parent, parent[a]);
-    }
-
-    private void union(int[] parent, int[] rank, int a, int b) {
-        a = find(parent, a);
-        b = find(parent, b);
-        if (a == b) return;
-        if (rank[a] < rank[b]) {
-            int temp = a;
-            a = b;
-            b = temp;
-        }
-        parent[b] = a;
-        rank[a] += rank[b];
     }
 }
