@@ -19,9 +19,9 @@ class Solution {
         for(int i=0;i<b+1;i++){
              end=end.next;
         }
-
+         start.next=list2;
         ListNode h2=list2;
-        start.next=h2;
+        
         while(h2.next!=null){
             h2=h2.next;
         }
