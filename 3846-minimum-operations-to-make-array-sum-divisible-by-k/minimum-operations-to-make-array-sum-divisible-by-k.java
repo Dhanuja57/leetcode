@@ -4,9 +4,6 @@ class Solution {
         for(int i=0;i<nums.length;i++){
             sum+=nums[i];
         }
-        if(sum % k ==0 ) return 0;
-        if(sum<6) return sum;
-        if(sum%k!=0) return sum%k;
-        return 0;
+         return sum%k;
     }
 }
