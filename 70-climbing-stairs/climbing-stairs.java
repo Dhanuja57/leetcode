@@ -1,4 +1,4 @@
-class Solution {
+/*class Solution {
     static int[] dp;
     public static int fun(int x){
         if(x<3) return x;
@@ -10,5 +10,18 @@ class Solution {
         Arrays.fill(dp,-1);
         return fun(n);
     
+    }
+}*/
+class Solution {
+    public int climbStairs(int n) {
+        if(n<4) return n;
+        int p1=3;
+        int p2=2;int cur=0;
+        for(int i=4;i<=n;i++){
+            cur=p1+p2;
+            p2=p1;
+            p1=cur;
+        }
+     return p1;
     }
 }
