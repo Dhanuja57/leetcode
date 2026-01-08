@@ -32,7 +32,6 @@ class Solution {
                 if(grid[i][j]==1 && visited[i][j]==false){
                    // count++;
                     m=dfs(grid,i,j,visited);
-                    //System.out.println(m);
                     ans=Math.max(m,ans);
                 }
             }  
