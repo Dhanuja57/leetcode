@@ -2,8 +2,9 @@ class Solution {
     private int ans(int[] h){
         Stack<Integer> s=new Stack<>();
         int max=0;
-        for(int i=0;i<=h.length;i++){
-            int ch=(i==h.length)?0:h[i];
+        int h_len=h.length;
+        for(int i=0;i<= h_len;i++){
+            int ch=(i== h_len)?0:h[i];
             while(!s.isEmpty() && ch<h[s.peek()]){
                 int height=h[s.pop()];
                 int width=((s.isEmpty())?i:i-s.peek()-1);
