@@ -4,12 +4,10 @@ class Solution {
         int max=0;
         for(int i=0;i<=h.length;i++){
             int ch=(i==h.length)?0:h[i];
-             //int ch = (i == h.length) ? 0 : h[i];
             while(!s.isEmpty() && ch<h[s.peek()]){
                 int height=h[s.pop()];
                 int width=((s.isEmpty())?i:i-s.peek()-1);
-                int area=(height*width);
-                max=Math.max(max,area);
+                max=Math.max(max,(height*width));
             }
             s.push(i);
         }
