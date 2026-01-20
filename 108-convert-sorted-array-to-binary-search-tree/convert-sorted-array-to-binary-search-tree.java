@@ -6,9 +6,9 @@ class Solution {
     private TreeNode convert(int[] nums, int left, int right) {
         if (left > right) {
             return null;
-        }
-        
-        int mid = left + (right - left) / 2;
+        }                                           
+       // int mid = left + (right - left) / 2;
+       int mid=(left+right)/2;
         
         TreeNode node = new TreeNode(nums[mid]);
         
