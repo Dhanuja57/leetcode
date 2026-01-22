@@ -1,6 +1,6 @@
 class Solution {
     public boolean left_right(int[][] grid, int r, int c, int size, int target) {
-        for (int i = r; i < r + size; i++) {
+        for (int i = r+1; i < r + size; i++) {
             int sum = 0;
             for (int j = c; j < c + size; j++) {
                 sum += grid[i][j];
@@ -10,7 +10,7 @@ class Solution {
         return true;
     }
     public boolean top_bottom(int[][] grid, int r, int c, int size, int target) {
-        for (int j = c; j < c + size; j++) {
+        for (int j = c+1; j < c + size; j++) {
             int sum = 0;
             for (int i = r; i < r + size; i++) {
                 sum += grid[i][j];
