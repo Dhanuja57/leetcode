@@ -2,7 +2,6 @@ class Solution {
     public int minimumPairRemoval(int[] nums) {
         List<Integer>arr=new ArrayList<>();
         for(int num:nums)  arr.add(num);
-
         int op=0;
         while(!sorted(arr)){
            int min=Integer.MAX_VALUE;
@@ -16,7 +15,6 @@ class Solution {
            }
            arr.set(index,arr.get(index)+arr.get(index+1));
            arr.remove(index+1);
-
            op++;
         }
         return op;
