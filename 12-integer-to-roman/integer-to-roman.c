@@ -11,6 +11,5 @@ char roman[13][3] = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
             strcat(res,roman[itr]);
         }
     }
-    return res;
-    
+    return res;   
 }
