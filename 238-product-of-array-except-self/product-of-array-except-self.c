@@ -12,10 +12,9 @@ int* productExceptSelf(int* nums, int numsSize, int* returnSize) {
     }
     for(int j=numsSize-2;j>=0;j--){
         surfix[j]=surfix[j+1]*nums[j+1];
+         ans[j]=prefix[j]*surfix[j];
     }
-    for(int itr=0;itr<numsSize;itr++){
-        ans[itr]=prefix[itr]*surfix[itr];
-    }
+   ans[numsSize-1]=prefix[numsSize-1];
     *returnSize = numsSize;
     return ans;
 }
