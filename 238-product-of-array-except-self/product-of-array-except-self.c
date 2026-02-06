@@ -8,11 +8,9 @@ int* productExceptSelf(int* nums, int numsSize, int* returnSize) {
     prefix[0]=1;
     surfix[numsSize-1]=1;
     for(int i=1;i<numsSize;i++){
-        printf("hii prefix");
         prefix[i]=prefix[i-1]*nums[i-1];
     }
     for(int j=numsSize-2;j>=0;j--){
-        printf("hi sur");
         surfix[j]=surfix[j+1]*nums[j+1];
     }
     for(int itr=0;itr<numsSize;itr++){
