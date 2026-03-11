@@ -1,7 +1,5 @@
-SELECT name as Employee
+SELECT e.name as Employee
 FROM Employee e
-WHERE salary > (
-      SELECT salary
-      FROM Employee
-      WHERE id = e.managerId
-);
+JOIN Employee m
+ON e.managerId = m.id
+WHERE e.salary > m.salary;
