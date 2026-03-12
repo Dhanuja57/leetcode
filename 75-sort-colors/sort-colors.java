@@ -6,7 +6,6 @@ class Solution {
             else if (n == 1) one++;
             else two++;
         }
-
         for (int i = 0; i < nums.length; i++) {
             if (zero > 0) {
                 nums[i] = 0;
